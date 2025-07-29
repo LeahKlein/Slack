@@ -46,7 +46,7 @@ def add_channel_to_slack(channel_name):
         raise ValueError(e) from e
 
 
-def add_user_to_channel(channel, user_ids):
+def add_user_to_channel(user_ids):
     try:
         members_response = client.conversations_members(channel=channel)
         if members_response['ok']:

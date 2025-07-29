@@ -107,8 +107,7 @@ class TestAddUserToChannel(unittest.TestCase):
             'members': ['U123456', 'U654321']
         }
         mock_client.conversations_invite.return_value = {'ok': True}
-        response = server.add_user_to_channel(
-            "C123456", ["U789012", "U542658"])
+        response = server.add_user_to_channel(["U789012", "U542658"])
         self.assertEqual(response, "Member U789012 added successfully")
         mock_client.conversations_invite.assert_called_once_with(
             channel="C123456", users="U789012")
@@ -120,7 +119,7 @@ class TestAddUserToChannel(unittest.TestCase):
             'members': ['U123456', 'U654321']
         }
         with self.assertRaises(ValueError) as context:
-            server.add_user_to_channel("C123456", ["U654321"])
+            server.add_user_to_channel(["U654321"])
         self.assertEqual(str(context.exception),
                          "The member U654321 is already part of the channel")
 
@@ -130,7 +129,7 @@ class TestAddUserToChannel(unittest.TestCase):
             'ok': False,
             'error': 'channel_not_found'}
         with self.assertRaises(ValueError) as context:
-            server.add_user_to_channel("C123456", ["U654321"])
+            server.add_user_to_channel(["U654321"])
         self.assertEqual(
             str(context.exception),
             "Error getting channel members: channel_not_found")
@@ -141,7 +140,7 @@ class TestAddUserToChannel(unittest.TestCase):
             'ok': False,
             'error': 'channel_not_found'}
         with self.assertRaises(ValueError) as context:
-            server.add_user_to_channel("C123456", ["U654321"])
+            server.add_user_to_channel(["U654321"])
         self.assertEqual(
             str(context.exception),
             "Error getting channel members: channel_not_found")
