@@ -2,7 +2,6 @@ from dotenv import load_dotenv
 import os
 from slack_sdk import WebClient
 from slack_sdk.errors import SlackApiError
-import json
 
 load_dotenv()
 
@@ -11,37 +10,43 @@ slack_token = os.getenv("MY_SLACK_TOKEN")
 channel = os.getenv("MY-CHANNEL")
 client = WebClient(token=slack_token)
 
+
 def post_message(message):
     try:
-        client.chat_postMessage(channel = channel, text = message)
+        client.chat_postMessage(channel=channel, text=message)
         return "Message sent successfully"
     except SlackApiError as e:
         raise ValueError(f"Error sending message: {e}") from e
 
+
 def channel_list():
     try:
-        result = client.conversations_list(types="public_channel,private_channel")
+        result = client.conversations_list(
+            types="public_channel,private_channel")
         channels = result["channels"]
         return channels
     except Exception as e:
         raise ValueError(e) from e
 
+
 def add_channel_to_slack(channel_name):
     channels = channel_list()
     for ch in channels:
         if ch["name"] == channel_name:
-            raise ValueError(f"Channel {channel_name} already exists.")
+            raise ValueError(
+                f"Channel {channel_name} already exists.")
 
     try:
         response = client.conversations_create(name=channel_name)
         if response['ok']:
             return f"Channel {channel_name} added successfully"
-        raise ValueError(f"Error adding channel: {response['error']}")
+        raise ValueError(
+            f"Error adding channel: {response['error']}")
     except SlackApiError as e:
         raise ValueError(e) from e
 
 
-def add_user_to_channel(slack_token, channel, user_ids):
+def add_user_to_channel(channel, user_ids):
     try:
         members_response = client.conversations_members(channel=channel)
         if members_response['ok']:
@@ -57,6 +62,7 @@ def add_user_to_channel(slack_token, channel, user_ids):
             raise ValueError(f"Error getting channel members: {members_response['error']}")
     except SlackApiError as e:
         raise ValueError(e) from e
+
 
 def remove_user_from_channel(channel_id, user_id):
     try:
