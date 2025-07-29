@@ -22,7 +22,8 @@ class TestPostMessage(unittest.TestCase):
         message = "Hello!"
         with self.assertRaises(ValueError) as context:
             server.post_message(message)
-        self.assertTrue("Error sending message: error" in str(context.exception))
+        self.assertTrue(
+            "Error sending message: error" in str(context.exception))
 
 
 class TestChannelList(unittest.TestCase):
