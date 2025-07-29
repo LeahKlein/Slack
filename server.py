@@ -53,13 +53,17 @@ def add_user_to_channel(channel, user_ids):
             current_members = members_response['members']
             for user in user_ids:
                 if user not in current_members:
-                    invite_response = client.conversations_invite(channel=channel, users=user)
+                    invite_response = client.conversations_invite(
+                        channel=channel, users=user)
                     if invite_response['ok']:
                         return f"Member {user} added successfully"
-                    raise ValueError(f"Error adding user {user}: {invite_response['error']}")
-                raise ValueError(f"The member {user} is already part of the channel")
+                    raise ValueError(
+                        f"Error adding user {user}: {invite_response['error']}")
+                raise ValueError(
+                    f"The member {user} is already part of the channel")
         else:
-            raise ValueError(f"Error getting channel members: {members_response['error']}")
+            raise ValueError(
+                f"Error getting channel members: {members_response['error']}")
     except SlackApiError as e:
         raise ValueError(e) from e
 
@@ -71,10 +75,12 @@ def remove_user_from_channel(channel_id, user_id):
             raise ValueError(members_response.get('error', 'Unknown error'))
         current_members = members_response['members']
         if user_id in current_members:
-            response = client.conversations_kick(channel=channel_id, user=user_id)
+            response = client.conversations_kick(
+                channel=channel_id, user=user_id)
             if not response.get('ok'):
                 raise ValueError(
-                    f"Error removing user {user_id}: {response.get('error', 'Unknown error')}")
+                    f"Error removing user {user_id}: " \
+                    f"{response.get('error', 'Unknown error')}")
             return f"Member {user_id} was successfully removed"
         raise ValueError(f"The user {user_id} are not in the channel.")
     except SlackApiError as e:
