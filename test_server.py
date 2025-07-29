@@ -109,7 +109,8 @@ class TestAddUserToChannel(unittest.TestCase):
         mock_client.conversations_invite.return_value = {'ok': True}
         response = server.add_user_to_channel(["U789012", "U542658"])
         self.assertEqual(response, "Member U789012 added successfully")
-        mock_client.conversations_invite.assert_called_once_with(users="U789012")
+        mock_client.conversations_invite.assert_called_once_with(
+            users="U789012")
 
     @patch('server.client')
     def test__user_already_exists(self, mock_client):
