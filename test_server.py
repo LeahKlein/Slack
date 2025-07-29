@@ -78,7 +78,8 @@ class TestAddChannelToSlack(unittest.TestCase):
         with self.assertRaises(ValueError) as context:
             server.add_channel_to_slack("channel_c")
         self.assertEqual(
-            str(context.exception), "Error adding channel: channel_not_created")
+            str(context.exception),
+            "Error adding channel: channel_not_created")
 
     @patch('server.client')
     @patch('server.channel_list')
@@ -106,7 +107,7 @@ class TestAddUserToChannel(unittest.TestCase):
         }
         mock_client.conversations_invite.return_value = {'ok': True}
         response = server.add_user_to_channel(
-            "C123456",["U789012","U542658"])
+            "C123456", ["U789012", "U542658"])
         self.assertEqual(response, "Member U789012 added successfully")
         mock_client.conversations_invite.assert_called_once_with(
             channel="C123456", users="U789012")
@@ -130,7 +131,8 @@ class TestAddUserToChannel(unittest.TestCase):
         with self.assertRaises(ValueError) as context:
             server.add_user_to_channel("C123456", ["U654321"])
         self.assertEqual(
-            str(context.exception), "Error getting channel members: channel_not_found")
+            str(context.exception),
+            "Error getting channel members: channel_not_found")
 
     @patch('server.client')
     def test_add_user_to_channel_failure(self, mock_client):
@@ -140,7 +142,8 @@ class TestAddUserToChannel(unittest.TestCase):
         with self.assertRaises(ValueError) as context:
             server.add_user_to_channel("C123456", ["U654321"])
         self.assertEqual(
-            str(context.exception), "Error getting channel members: channel_not_found")
+            str(context.exception),
+            "Error getting channel members: channel_not_found")
 
 
 class TestRemoveUserFromChannel(unittest.TestCase):

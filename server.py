@@ -58,7 +58,8 @@ def add_user_to_channel(channel, user_ids):
                     if invite_response['ok']:
                         return f"Member {user} added successfully"
                     raise ValueError(
-                        f"Error adding user {user}: {invite_response['error']}")
+                        f"Error adding user {user}: "
+                        f"{invite_response['error']}")
                 raise ValueError(
                     f"The member {user} is already part of the channel")
         else:
@@ -79,7 +80,7 @@ def remove_user_from_channel(channel_id, user_id):
                 channel=channel_id, user=user_id)
             if not response.get('ok'):
                 raise ValueError(
-                    f"Error removing user {user_id}: " \
+                    f"Error removing user {user_id}: "
                     f"{response.get('error', 'Unknown error')}")
             return f"Member {user_id} was successfully removed"
         raise ValueError(f"The user {user_id} are not in the channel.")
