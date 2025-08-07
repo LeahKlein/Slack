@@ -8,7 +8,7 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: ../
+        working-directory: ./
     steps:
     - name: 🔨 Check out repository
       uses: actions/checkout@v4
