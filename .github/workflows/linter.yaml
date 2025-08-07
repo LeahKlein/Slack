@@ -2,7 +2,7 @@ name: 🧪Linter CI
 on: 
   push:
     branches:
-      - feature_slack_lk
+      - feature
 jobs:
   test:
     runs-on: ubuntu-latest
