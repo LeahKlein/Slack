@@ -9,10 +9,10 @@ jobs:
     defaults:
       run:
         working-directory: ./
-    steps:  
+    steps:
     - name: 🔨 Check out repository
       uses: actions/checkout@v4
     - name: ➕ Install flake8
       run: pip install --upgrade flake8
     - name: ✅ Run flake8
-      run: flake8 --verbose ./*.py
+      run: flake8 --verbose --config="{ 'blank-lines': 1 }" ./*.py

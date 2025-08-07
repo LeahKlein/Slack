@@ -4,4 +4,6 @@ COPY  . .
 
 RUN pip install -r requirements.txt
 
-CMD ["python" , "./server.py"]
+RUN pip install flake8
+
+CMD ["flake8", "--verbose", "./"]
