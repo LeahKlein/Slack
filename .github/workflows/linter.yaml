@@ -12,6 +12,8 @@ jobs:
     steps:
     - name: 🔨 Check out repository
       uses: actions/checkout@v4
+    - name: ✅ List files
+      run: ls -la
     - name: ➕ Install flake8
       run: pip install --upgrade flake8
     - name: ✅ Run flake8
