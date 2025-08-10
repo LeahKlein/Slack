@@ -1,0 +1,22 @@
+name: 🧪Linter CI
+on: 
+  push:
+    branches:
+      - feature
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./
+    steps:
+    - name: 🔨 Check out repository
+      uses: actions/checkout@v4
+    - name: ✅ List files
+      run: ls -la
+    - name: ➕ Install flake8
+      run: pip install --upgrade flake8
+    - name: ✅ Run flake8
+      run: flake8 --verbose server.py test_server.py
+
+
